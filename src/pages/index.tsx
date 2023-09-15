@@ -32,6 +32,11 @@ export default function Home() {
           <p className='text-center mx-auto'>Made by emirhanergn for SKYLAB Bootcamp.</p>
           <a href='https://github.com/emirhnergn/todo-or-nottodo' target='_blank' className='ml-2 text-blue-500 hover:text-blue-600 text-center border-gray-800 mx-auto'>Github Link</a>
         </div>
+        <div className='absolute flex flex-col w-fit h-fit left-0 bottom-1 mx-auto bg-gradient-to-br from-purple-100 to-lime-100 rounded-lg py-1 px-2 shadow-2xl'>
+          <p className='text-center mx-auto'>Left mouse button to look around.</p>
+          <p className='text-center mx-auto'>Right mouse button to rotate.</p>
+          <p className='text-center mx-auto'>Middle mouse button to zoom in/out.</p>
+        </div>
     </div>
   )
 }
