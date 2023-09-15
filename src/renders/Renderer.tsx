@@ -12,32 +12,223 @@ import { useTodosStore, removeTodo, useOrderStore,removeOrder, addOrder, addTodo
 
 
 
-function Box(props: JSX.IntrinsicElements['mesh']) {
+function Box(props: JSX.IntrinsicElements['mesh'] & 
+  {color : string|number,
+  randRotationDelta : number, randRotation : number,
+  scale : number
+  }) {
   const ref = useRef<THREE.Mesh>(null!)
-  const [hovered, hover] = useState(false)
-  const [clicked, click] = useState(false)
+  const xPos = THREE.MathUtils.randInt(-100,100);
+  const yPos = THREE.MathUtils.randInt(-100,100);
+  const zPos = THREE.MathUtils.randInt(-200,-10);
+
   useFrame((state, delta) => (
-    ref.current.rotation.x += 0.01,
-    clicked && ref.current.visible ? ref.current.visible = false : null
-    ))
+    props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
+    props.randRotation == 1 ? ref.current.rotation.y += props.randRotationDelta : null,
+    props.randRotation == 2 ? ref.current.rotation.z += props.randRotationDelta : null
+  ))
 
   return (
     <mesh
       {...props}
       ref={ref}
-      scale={clicked ? 1.5 : 1}
-      onClick={(event) => click(!clicked)}
-      onPointerOver={(event) => hover(true)}
-      onPointerOut={(event) => hover(false)}>
+      position={[xPos, yPos, zPos]}
+      scale={props.scale}>
 
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? 'red' : 'orange'} />
+      <meshPhysicalMaterial
+      metalness={0.1}
+      roughness={0.1}
+      reflectivity={1}
+      color={props.color} />
+    </mesh>
+  )
+}
+
+function Torus(props: JSX.IntrinsicElements['mesh'] & 
+  {color : string|number,
+  randRotationDelta : number, randRotation : number,
+  scale : number
+  }) {
+  const ref = useRef<THREE.Mesh>(null!)
+  const xPos = THREE.MathUtils.randInt(-100,100);
+  const yPos = THREE.MathUtils.randInt(-100,100);
+  const zPos = THREE.MathUtils.randInt(-200,-10);
+
+  useFrame((state, delta) => (
+    props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
+    props.randRotation == 1 ? ref.current.rotation.y += props.randRotationDelta : null,
+    props.randRotation == 2 ? ref.current.rotation.z += props.randRotationDelta : null,
+    ref.current.position.x += 0.01,
+    ref.current.position.y += 0.01,
+    ref.current.position.z += -0.01
+  ))
+
+  return (
+    <mesh
+      {...props}
+      position={[xPos, yPos, zPos]}
+      ref={ref}
+      scale={props.scale}>
+
+      <torusGeometry args={[10, 3, 16,100]} />
+      <meshPhysicalMaterial
+      metalness={0.1}
+      roughness={0.1}
+      reflectivity={1}
+      color={props.color} />
+    </mesh>
+  )
+}
+
+function TorusKnot(props: JSX.IntrinsicElements['mesh'] & 
+  {color : string|number,
+  randRotationDelta : number, randRotation : number,
+  scale : number
+  }) {
+  const ref = useRef<THREE.Mesh>(null!)
+  const xPos = THREE.MathUtils.randInt(-100,100);
+  const yPos = THREE.MathUtils.randInt(-100,100);
+  const zPos = THREE.MathUtils.randInt(-200,-10);
+
+  useFrame((state, delta) => (
+    props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
+    props.randRotation == 1 ? ref.current.rotation.y += props.randRotationDelta : null,
+    props.randRotation == 2 ? ref.current.rotation.z += props.randRotationDelta : null,
+    ref.current.position.x += -0.01,
+    ref.current.position.y += -0.01,
+    ref.current.position.z += -0.01
+  ))
+
+  return (
+    <mesh
+      {...props}
+      ref={ref}
+      position={[xPos, yPos, zPos]}
+      scale={props.scale}>
+
+      <torusKnotGeometry args={[5, 2, 40,8]} />
+      <meshPhysicalMaterial
+      metalness={0.1}
+      roughness={0.1}
+      reflectivity={1}
+      color={props.color} />
+    </mesh>
+  )
+}
+
+function Icosahedron(props: JSX.IntrinsicElements['mesh'] & 
+  {color : string|number,
+  randRotationDelta : number, randRotation : number,
+  scale : number
+  }) {
+  const ref = useRef<THREE.Mesh>(null!)
+  const xPos = THREE.MathUtils.randInt(-100,100);
+  const yPos = THREE.MathUtils.randInt(-100,100);
+  const zPos = THREE.MathUtils.randInt(-200,-10);
+
+  useFrame((state, delta) => (
+    props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
+    props.randRotation == 1 ? ref.current.rotation.y += props.randRotationDelta : null,
+    props.randRotation == 2 ? ref.current.rotation.z += props.randRotationDelta : null,
+    ref.current.position.x -= 0.01,
+    ref.current.position.y -= 0.01,
+    ref.current.position.z += -0.01
+  ))
+
+  return (
+    <mesh
+      {...props}
+      ref={ref}
+      position={[xPos, yPos, zPos]}
+      scale={props.scale}>
+
+      <icosahedronGeometry args={[5, 1]} />
+      <meshPhysicalMaterial
+      metalness={0.1}
+      roughness={0.1}
+      reflectivity={1}
+      color={props.color} />
+    </mesh>
+  )
+}
+
+function Ring(props: JSX.IntrinsicElements['mesh'] & 
+  {color : string|number,
+  randRotationDelta : number, randRotation : number,
+  scale : number
+  }) {
+  const ref = useRef<THREE.Mesh>(null!)
+  const xPos = THREE.MathUtils.randInt(-100,100);
+  const yPos = THREE.MathUtils.randInt(-100,100);
+  const zPos = THREE.MathUtils.randInt(-200,-10);
+
+  useFrame((state, delta) => (
+    props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
+    props.randRotation == 1 ? ref.current.rotation.y += props.randRotationDelta : null,
+    props.randRotation == 2 ? ref.current.rotation.z += props.randRotationDelta : null,
+    ref.current.position.x -= 0.01,
+    ref.current.position.y -= 0.01,
+    ref.current.position.z += -0.01
+  ))
+
+  return (
+    <mesh
+      {...props}
+      ref={ref}
+      position={[xPos, yPos, zPos]}
+      scale={props.scale}>
+
+      <ringGeometry args={[5, 10,6,3]} />
+      <meshPhysicalMaterial
+      metalness={0.1}
+      roughness={0.1}
+      reflectivity={1}
+      color={props.color} />
+    </mesh>
+  )
+}
+
+function Dodecahedron(props: JSX.IntrinsicElements['mesh'] & 
+  {color : string|number,
+  randRotationDelta : number, randRotation : number,
+  scale : number
+  }) {
+  const ref = useRef<THREE.Mesh>(null!)
+  const xPos = THREE.MathUtils.randInt(-100,100);
+  const yPos = THREE.MathUtils.randInt(-100,100);
+  const zPos = THREE.MathUtils.randInt(-200,-50);
+
+  useFrame((state, delta) => (
+    props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
+    props.randRotation == 1 ? ref.current.rotation.y += props.randRotationDelta : null,
+    props.randRotation == 2 ? ref.current.rotation.z += props.randRotationDelta : null,
+    ref.current.position.x -= 0.01,
+    ref.current.position.y -= 0.01,
+    ref.current.position.z += -0.01
+  ))
+
+  return (
+    <mesh
+      {...props}
+      ref={ref}
+      position={[xPos, yPos, zPos]}
+      scale={props.scale}>
+
+      <dodecahedronGeometry args={[10,1]}/>
+      <meshPhysicalMaterial
+      metalness={0.1}
+      roughness={0.1}
+      reflectivity={1}
+      color={props.color} />
     </mesh>
   )
 }
 
 const Octahedron = (props: JSX.IntrinsicElements['mesh'] & {orderKey: any}) =>
 {
+  const order = useOrderStore();
+  const todos = useTodosStore();
   const ref = useRef<THREE.Mesh>(null!)
   useFrame((state, delta) => (ref.current.rotation.x += 0.01))
   useFrame(() => {
@@ -45,6 +236,7 @@ const Octahedron = (props: JSX.IntrinsicElements['mesh'] & {orderKey: any}) =>
     {
       ref.current.position.x -= 1
     }
+    Object.keys(todos).includes(props.orderKey) ? null : ref.current.position.y = 10000;
   })
 
   return (
@@ -55,7 +247,7 @@ const Octahedron = (props: JSX.IntrinsicElements['mesh'] & {orderKey: any}) =>
       ref={ref}
       scale={0.2}
       rotation={[0,0,3.14/2]}
-      position={[46, -2.2 * props.orderKey, 0]}>
+      position={[46, -1.6 * (order[props.orderKey] -1), 0]}>
       <coneGeometry args={[2, 5, 30]} />
       <meshStandardMaterial 
         color={'lightgreen'} />
@@ -63,6 +255,8 @@ const Octahedron = (props: JSX.IntrinsicElements['mesh'] & {orderKey: any}) =>
         clearcoat={1}
         clearcoatRoughness={0}
         reflectivity={1}
+        metalness={0.2}
+        roughness={0}
         color={'lightgreen'} />
     </mesh>
   )
@@ -83,9 +277,9 @@ function WriteText(props: JSX.IntrinsicElements['group'] & {text: string, orderK
 
 
   return (
-    <group ref={ref} {...props} position={[-40, -2.2 * order[props.orderKey], 0]}>
+    <group ref={ref} {...props} position={[-40, -1.6 * (order[props.orderKey] -1), 0]}>
       <mesh>
-        <planeGeometry args={[10,2,1]}/>
+        <planeGeometry args={[10,1.5,1]}/>
         <meshPhysicalMaterial
         reflectivity={1}
         roughness={0}
@@ -97,27 +291,18 @@ function WriteText(props: JSX.IntrinsicElements['group'] & {text: string, orderK
           position={[0, 0.05, 0.009]} 
           occlude
           transform
-          className="content opacity-0">
-          <div className="flex w-[400px] h-[80.5px] border-2 border-black overflow-y-auto">
-            <button className='w-[5%] h-[90%] bg-red-200 hover:bg-red-300 transition-all border-2 border-gray-800 rounded-lg p-1 m-1' onClick={e => {
+          className="content">
+          <div className="flex w-[400px] h-[61px] mt-[2px] border-2 border-black overflow-y-auto">
+            <button className='w-[5%] h-[80%] bg-red-200/40 hover:bg-red-300/20 transition-all border-2 border-gray-800 rounded-lg px-1 m-1' onClick={e => {
               e.preventDefault();
               deleteTodo(props.orderKey);
             }}>X</button>
-            <p className='m-auto p-1 h-fit text-[0.9vh] text-center align-middle text-ellipsis break-words'>{props.text}</p>
+            <p className='m-auto px-1 h-fit text-[0.8vh] text-center align-middle text-ellipsis break-words'>{props.text}</p>
           </div>
         </Html>
       </mesh>
     </group>
   );
-}
-
-const deleteTodo = (key:string) => {
-  const removeTodoLocal = removeTodo;
-  const removeOrderLocal = removeOrder;
-
-  removeTodoLocal(key);
-  removeOrderLocal(key);
-
 }
 
 function Camera(props: JSX.IntrinsicElements['group']) {
@@ -142,21 +327,65 @@ function Camera(props: JSX.IntrinsicElements['group']) {
       minDistance={12} maxDistance={30}
       ref = {controlsRef} camera={cameraRef.current}
       enableDamping dampingFactor={0.1}
-      enablePan={true} enableZoom={true} minPolarAngle={Math.PI / 2.2} maxPolarAngle={Math.PI / 2.2} />
+      enablePan={true} enableZoom={true} 
+      minAzimuthAngle={-Math.PI / 5} maxAzimuthAngle={Math.PI / 5}
+      minPolarAngle={Math.PI / 2.2} maxPolarAngle={Math.PI / 2.2} />
     </group>
   )
 }
 
+const deleteTodo = (key:string) => {
+  const removeTodoLocal = removeTodo;
+  const removeOrderLocal = removeOrder;
+
+  removeTodoLocal(key);
+  removeOrderLocal(key);
+
+}
+
+const spawnRandomObject = (count : number) => {
+  const randomObjects = []
+  for (let i = 0; i < count; i++)
+  {
+    const color = Math.random() * 0xffffff;
+    const randRotation = Math.floor(Math.random() * 3);
+    const randRotationDelta = Math.random() * 0.01;
+    const scale = THREE.MathUtils.randInt(1,10);
+    const randObject = Math.floor(Math.random() * 4);
+    switch (randObject)
+    {
+      case 0:
+        randomObjects.push(<Box color={color} randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale} />)
+      case 1:
+        randomObjects.push(<Torus color={color}randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/7} />)
+      case 2:
+        randomObjects.push(<TorusKnot color={color}randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/7}/>)
+      case 3:
+        randomObjects.push(<Icosahedron color={color} randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/5} />)
+      case 4:
+        randomObjects.push(<Ring color={color} randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/5} />)
+      case 5:
+        randomObjects.push(<Dodecahedron color={color} randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/10} />)
+    }
+  }
+  return randomObjects;
+
+}
 
 
 export default function Renderer(props : any) {
   const [elements, setElements] = useState<JSX.Element[]>([]);
   const [firstLoad, setFirstLoad] = useState(true);
+  const groupRef = useRef<THREE.Group>(null!);
   const order = useOrderStore();
   const todos = useTodosStore();
 
   const addOrderLocal = addOrder;
   const addTodoLocal = addTodo;
+
+  useEffect(() => {
+    Object.keys(order).length === 0 && (setElements([]), setFirstLoad(true));
+  }, [todos]);
 
   useEffect(() => {
     const addTodoToRender = (key:string, text:string, index:number, delay:number) => 
@@ -170,7 +399,7 @@ export default function Renderer(props : any) {
         setElements((elements) => [
           ...elements,
           (
-            <group key={index}>
+            <group>
               <WriteText orderKey={key} text={text} />
               <Octahedron orderKey={key}/>
             </group>
@@ -180,24 +409,31 @@ export default function Renderer(props : any) {
     };
 
     Object.keys(todos).forEach((key:string, index) => {
-      const delay = (index + 1) * 200; 
+      //const delay = (index + 1) * 200; 
+      const delay = 0;
       addTodoToRender(key, todos[key], index, delay);
     });
   }, [todos]);
 
   return (
     <Canvas>
-      <ambientLight intensity={0.7} color={'white'} />
+      <ambientLight intensity={0.9} color={'white'} />
       <directionalLight position={[5.5,  4, 0]} intensity={0.3} />
       <directionalLight position={[5.5, -4.5, 0]} intensity={1} />
-      <spotLight position={[6, 2, 0]} intensity={1} />
+      <directionalLight position={[-2, -4.5, 1]} intensity={0.5} />
+      <spotLight position={[6, 2, 0]} intensity={1} color={"red"}/>
+      <pointLight position={[5,2,2]} intensity={5}/>
+      <pointLight position={[-4,-8,1]} color={"lightblue"} intensity={5} />
       <pointLight position={[6,-1,2]} />
       <pointLight position={[3,0,3]} />
-      <Box position={[-1.2, 2, 0]} />
-      <Box position={[1.2, 2, 0]} />
+      {
+        spawnRandomObject(30)
+      }
       <Camera/>
       {
-        elements
+        <group ref={groupRef}>
+          {elements}
+        </group>
       }
     </Canvas>
   )
