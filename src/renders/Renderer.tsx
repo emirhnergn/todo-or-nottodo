@@ -20,7 +20,7 @@ function Box(props: JSX.IntrinsicElements['mesh'] &
   const ref = useRef<THREE.Mesh>(null!)
   const xPos = THREE.MathUtils.randInt(-200,200);
   const yPos = THREE.MathUtils.randInt(-100,100);
-  const zPos = THREE.MathUtils.randInt(-200,-10);
+  const zPos = THREE.MathUtils.randInt(-200,-50);
 
   useFrame((state, delta) => (
     props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
@@ -53,14 +53,14 @@ function Torus(props: JSX.IntrinsicElements['mesh'] &
   const ref = useRef<THREE.Mesh>(null!)
   const xPos = THREE.MathUtils.randInt(-200,200);
   const yPos = THREE.MathUtils.randInt(-100,100);
-  const zPos = THREE.MathUtils.randInt(-200,-10);
+  const zPos = THREE.MathUtils.randInt(-200,-50);
 
   useFrame((state, delta) => (
     props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
     props.randRotation == 1 ? ref.current.rotation.y += props.randRotationDelta : null,
     props.randRotation == 2 ? ref.current.rotation.z += props.randRotationDelta : null,
     ref.current.position.x += 0.01,
-    ref.current.position.y += 0.01,
+    ref.current.position.y -= 0.01,
     ref.current.position.z += -0.01
   ))
 
@@ -89,14 +89,14 @@ function TorusKnot(props: JSX.IntrinsicElements['mesh'] &
   const ref = useRef<THREE.Mesh>(null!)
   const xPos = THREE.MathUtils.randInt(-200,200);
   const yPos = THREE.MathUtils.randInt(-100,100);
-  const zPos = THREE.MathUtils.randInt(-200,-10);
+  const zPos = THREE.MathUtils.randInt(-200,-50);
 
   useFrame((state, delta) => (
     props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
     props.randRotation == 1 ? ref.current.rotation.y += props.randRotationDelta : null,
     props.randRotation == 2 ? ref.current.rotation.z += props.randRotationDelta : null,
     ref.current.position.x += -0.01,
-    ref.current.position.y += -0.01,
+    ref.current.position.y += 0.01,
     ref.current.position.z += -0.01
   ))
 
@@ -107,7 +107,7 @@ function TorusKnot(props: JSX.IntrinsicElements['mesh'] &
       position={[xPos, yPos, zPos]}
       scale={props.scale}>
 
-      <torusKnotGeometry args={[5, 2, 40,8]} />
+      <torusKnotGeometry args={[3, 2, 40,20]} />
       <meshPhysicalMaterial
       metalness={0.1}
       roughness={0.1}
@@ -125,14 +125,14 @@ function Icosahedron(props: JSX.IntrinsicElements['mesh'] &
   const ref = useRef<THREE.Mesh>(null!)
   const xPos = THREE.MathUtils.randInt(-200,200);
   const yPos = THREE.MathUtils.randInt(-100,100);
-  const zPos = THREE.MathUtils.randInt(-200,-10);
+  const zPos = THREE.MathUtils.randInt(-200,-50);
 
   useFrame((state, delta) => (
     props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
     props.randRotation == 1 ? ref.current.rotation.y += props.randRotationDelta : null,
     props.randRotation == 2 ? ref.current.rotation.z += props.randRotationDelta : null,
     ref.current.position.x -= 0.01,
-    ref.current.position.y -= 0.01,
+    ref.current.position.y += 0.01,
     ref.current.position.z += -0.01
   ))
 
@@ -160,15 +160,15 @@ function Ring(props: JSX.IntrinsicElements['mesh'] &
   }) {
   const ref = useRef<THREE.Mesh>(null!)
   const xPos = THREE.MathUtils.randInt(-200,200);
-  const yPos = THREE.MathUtils.randInt(-100,100);
-  const zPos = THREE.MathUtils.randInt(-200,-10);
+  const yPos = THREE.MathUtils.randInt(-150,100);
+  const zPos = THREE.MathUtils.randInt(-200,-50);
 
   useFrame((state, delta) => (
     props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
     props.randRotation == 1 ? ref.current.rotation.y += props.randRotationDelta : null,
     props.randRotation == 2 ? ref.current.rotation.z += props.randRotationDelta : null,
-    ref.current.position.x -= 0.01,
-    ref.current.position.y -= 0.01,
+    ref.current.position.x += 0.01,
+    ref.current.position.y += 0.01,
     ref.current.position.z += -0.01
   ))
 
@@ -181,10 +181,10 @@ function Ring(props: JSX.IntrinsicElements['mesh'] &
 
       <ringGeometry args={[2, 6,7,8]} />
       <meshPhysicalMaterial
-      metalness={0.1}
-      roughness={0.1}
+      metalness={0}
+      roughness={0}
       reflectivity={1}
-      color={props.color} />
+      color={props.color}/>
     </mesh>
   )
 }
@@ -203,8 +203,8 @@ function Dodecahedron(props: JSX.IntrinsicElements['mesh'] &
     props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
     props.randRotation == 1 ? ref.current.rotation.y += props.randRotationDelta : null,
     props.randRotation == 2 ? ref.current.rotation.z += props.randRotationDelta : null,
-    ref.current.position.x -= 0.01,
-    ref.current.position.y -= 0.01,
+    ref.current.position.x = -0.01,
+    ref.current.position.y = -0.01,
     ref.current.position.z += -0.01
   ))
 
@@ -215,7 +215,7 @@ function Dodecahedron(props: JSX.IntrinsicElements['mesh'] &
       position={[xPos, yPos, zPos]}
       scale={props.scale}>
 
-      <dodecahedronGeometry args={[10,1]}/>
+      <dodecahedronGeometry args={[5,10]}/>
       <meshPhysicalMaterial
       metalness={0.1}
       roughness={0.1}
@@ -285,8 +285,8 @@ function WriteText(props: JSX.IntrinsicElements['group'] & {text: string, orderK
         roughness={0}
         metalness={0.2}
         side={THREE.DoubleSide}
-        color={'white'} 
-        emissive={'blue'}/>
+        color={'gray'} 
+        emissive={'white'}/>
         <Html
           position={[0, 0.05, 0.009]} 
           occlude
@@ -321,7 +321,7 @@ function Camera(props: JSX.IntrinsicElements['group']) {
       ref={cameraRef}
       makeDefault
       args={[75, window.innerWidth / window.innerHeight, 0.1, 1000]}
-      position={[0, 0, 12]}
+      position={[0, 0, 8]}
 
       />
       <OrbitControls 
@@ -430,7 +430,7 @@ export default function Renderer(props : any) {
       <pointLight position={[6,-1,2]} />
       <pointLight position={[3,0,3]} />
       {
-        spawnRandomObject(40)
+        spawnRandomObject(50)
       }
       <Camera/>
       {
