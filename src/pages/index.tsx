@@ -1,7 +1,7 @@
 
 import Head from 'next/head'
 import Renderer from '@/renders/Renderer'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useTodosStore, addTodo } from '@/stores/MainStore';
 
 export default function Home() {

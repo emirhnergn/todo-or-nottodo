@@ -2,12 +2,8 @@
 import * as THREE from 'three'
 import * as React from 'react'
 import { useRef, useState, useEffect } from 'react';
-import { Canvas, useFrame, Object3DNode, useThree } from '@react-three/fiber'
-import { Suspense } from 'react'
-import { Stats, OrbitControls, Text, Html, OrbitControlsProps, PerspectiveCamera, useScroll, OrthographicCamera  } from '@react-three/drei'
-import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
-import { extend } from '@react-three/fiber'
-import { easing, geometry } from 'maath'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { OrbitControls, Html, PerspectiveCamera} from '@react-three/drei'
 import { useTodosStore, removeTodo, useOrderStore,removeOrder, addOrder, addTodo } from '@/stores/MainStore';
 
 
