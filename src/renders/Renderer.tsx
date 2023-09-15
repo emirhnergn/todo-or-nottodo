@@ -297,8 +297,8 @@ function WriteText(props: JSX.IntrinsicElements['group'] & {text: string, orderK
               e.preventDefault();
               deleteTodo(props.orderKey);
             }}>X</button>
-            <p className='absolute m-auto px-1 h-fit w-full text-[0.9vh] text-center align-top text-ellipsis break-words'>To-Do-{order[props.orderKey]+1}</p>
-            <p className='m-auto px-1 h-fit text-[0.8vh] text-center align-middle text-ellipsis break-words'>{props.text}</p>
+            <p className='absolute m-auto px-1 h-fit w-full text-[1rem] text-center align-top text-ellipsis break-words'>To-Do-{order[props.orderKey]+1}</p>
+            <p className='m-auto px-1 h-fit text-[0.5rem] text-center align-middle text-ellipsis break-words'>{props.text}</p>
           </div>
         </Html>
       </mesh>
@@ -321,7 +321,7 @@ function Camera(props: JSX.IntrinsicElements['group']) {
       ref={cameraRef}
       makeDefault
       args={[75, window.innerWidth / window.innerHeight, 0.1, 1000]}
-      position={[0, 0, 8]}
+      position={[0, 0, 6]}
 
       />
       <OrbitControls 
