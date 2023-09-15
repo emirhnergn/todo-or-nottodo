@@ -18,7 +18,7 @@ function Box(props: JSX.IntrinsicElements['mesh'] &
   scale : number
   }) {
   const ref = useRef<THREE.Mesh>(null!)
-  const xPos = THREE.MathUtils.randInt(-100,100);
+  const xPos = THREE.MathUtils.randInt(-200,200);
   const yPos = THREE.MathUtils.randInt(-100,100);
   const zPos = THREE.MathUtils.randInt(-200,-10);
 
@@ -51,7 +51,7 @@ function Torus(props: JSX.IntrinsicElements['mesh'] &
   scale : number
   }) {
   const ref = useRef<THREE.Mesh>(null!)
-  const xPos = THREE.MathUtils.randInt(-100,100);
+  const xPos = THREE.MathUtils.randInt(-200,200);
   const yPos = THREE.MathUtils.randInt(-100,100);
   const zPos = THREE.MathUtils.randInt(-200,-10);
 
@@ -87,7 +87,7 @@ function TorusKnot(props: JSX.IntrinsicElements['mesh'] &
   scale : number
   }) {
   const ref = useRef<THREE.Mesh>(null!)
-  const xPos = THREE.MathUtils.randInt(-100,100);
+  const xPos = THREE.MathUtils.randInt(-200,200);
   const yPos = THREE.MathUtils.randInt(-100,100);
   const zPos = THREE.MathUtils.randInt(-200,-10);
 
@@ -123,7 +123,7 @@ function Icosahedron(props: JSX.IntrinsicElements['mesh'] &
   scale : number
   }) {
   const ref = useRef<THREE.Mesh>(null!)
-  const xPos = THREE.MathUtils.randInt(-100,100);
+  const xPos = THREE.MathUtils.randInt(-200,200);
   const yPos = THREE.MathUtils.randInt(-100,100);
   const zPos = THREE.MathUtils.randInt(-200,-10);
 
@@ -159,7 +159,7 @@ function Ring(props: JSX.IntrinsicElements['mesh'] &
   scale : number
   }) {
   const ref = useRef<THREE.Mesh>(null!)
-  const xPos = THREE.MathUtils.randInt(-100,100);
+  const xPos = THREE.MathUtils.randInt(-200,200);
   const yPos = THREE.MathUtils.randInt(-100,100);
   const zPos = THREE.MathUtils.randInt(-200,-10);
 
@@ -427,7 +427,7 @@ export default function Renderer(props : any) {
       <pointLight position={[6,-1,2]} />
       <pointLight position={[3,0,3]} />
       {
-        spawnRandomObject(30)
+        spawnRandomObject(40)
       }
       <Camera/>
       {
