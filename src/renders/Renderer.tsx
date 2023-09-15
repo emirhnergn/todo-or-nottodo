@@ -179,7 +179,7 @@ function Ring(props: JSX.IntrinsicElements['mesh'] &
       position={[xPos, yPos, zPos]}
       scale={props.scale}>
 
-      <ringGeometry args={[5, 10,6,3]} />
+      <ringGeometry args={[2, 6,7,8]} />
       <meshPhysicalMaterial
       metalness={0.1}
       roughness={0.1}
@@ -293,10 +293,11 @@ function WriteText(props: JSX.IntrinsicElements['group'] & {text: string, orderK
           transform
           className="content">
           <div className="flex w-[400px] h-[61px] mt-[2px] border-2 border-black overflow-y-auto">
-            <button className='w-[5%] h-[80%] bg-red-200/40 hover:bg-red-300/20 transition-all border-2 border-gray-800 rounded-lg px-1 m-1' onClick={e => {
+            <button className='absolute left-1 w-[5%] h-[80%] bg-red-200/40 hover:bg-red-300/20 transition-all border-2 border-gray-800 rounded-lg px-1 m-1' onClick={e => {
               e.preventDefault();
               deleteTodo(props.orderKey);
             }}>X</button>
+            <p className='absolute m-auto px-1 h-fit w-full text-[0.9vh] text-center align-top text-ellipsis break-words'>To-Do-{order[props.orderKey]+1}</p>
             <p className='m-auto px-1 h-fit text-[0.8vh] text-center align-middle text-ellipsis break-words'>{props.text}</p>
           </div>
         </Html>
@@ -319,12 +320,13 @@ function Camera(props: JSX.IntrinsicElements['group']) {
       <PerspectiveCamera 
       ref={cameraRef}
       makeDefault
+      args={[75, window.innerWidth / window.innerHeight, 0.1, 1000]}
       position={[0, 0, 12]}
 
       />
       <OrbitControls 
       mouseButtons={{LEFT: THREE.MOUSE.PAN, MIDDLE: THREE.MOUSE.ROTATE, RIGHT: THREE.MOUSE.ROTATE}}
-      minDistance={12} maxDistance={30}
+      minDistance={6} maxDistance={30}
       ref = {controlsRef} camera={cameraRef.current}
       enableDamping dampingFactor={0.1}
       enablePan={true} enableZoom={true} 
@@ -421,8 +423,9 @@ export default function Renderer(props : any) {
       <directionalLight position={[5.5,  4, 0]} intensity={0.3} />
       <directionalLight position={[5.5, -4.5, 0]} intensity={1} />
       <directionalLight position={[-2, -4.5, 1]} intensity={0.5} />
+      <directionalLight position={[0,20,5]} intensity={4} />
       <spotLight position={[6, 2, 0]} intensity={1} color={"red"}/>
-      <pointLight position={[5,2,2]} intensity={5}/>
+      <pointLight position={[5,2,2]} intensity={5} color={"0xffffff"}/>
       <pointLight position={[-4,-8,1]} color={"lightblue"} intensity={5} />
       <pointLight position={[6,-1,2]} />
       <pointLight position={[3,0,3]} />
