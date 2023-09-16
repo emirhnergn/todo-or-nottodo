@@ -4,9 +4,7 @@ import * as React from 'react'
 import { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Html, PerspectiveCamera} from '@react-three/drei'
-import { useTodosStore, removeTodo, useOrderStore,removeOrder, addOrder, addTodo } from '@/stores/MainStore';
-
-
+import RenderTodos from './RenderTodos';
 
 function Box(props: JSX.IntrinsicElements['mesh'] & 
   {color : string|number,
@@ -55,9 +53,9 @@ function Torus(props: JSX.IntrinsicElements['mesh'] &
     props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
     props.randRotation == 1 ? ref.current.rotation.y += props.randRotationDelta : null,
     props.randRotation == 2 ? ref.current.rotation.z += props.randRotationDelta : null,
-    ref.current.position.x += 0.01,
-    ref.current.position.y -= 0.01,
-    ref.current.position.z += -0.01
+    ref.current.position.x += 0.002,
+    ref.current.position.y -= 0.001,
+    ref.current.position.z += -0.001
   ))
 
   return (
@@ -91,9 +89,9 @@ function TorusKnot(props: JSX.IntrinsicElements['mesh'] &
     props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
     props.randRotation == 1 ? ref.current.rotation.y += props.randRotationDelta : null,
     props.randRotation == 2 ? ref.current.rotation.z += props.randRotationDelta : null,
-    ref.current.position.x += -0.01,
-    ref.current.position.y += 0.01,
-    ref.current.position.z += -0.01
+    ref.current.position.x += -0.001,
+    ref.current.position.y += 0.002,
+    ref.current.position.z += -0.001
   ))
 
   return (
@@ -127,9 +125,9 @@ function Icosahedron(props: JSX.IntrinsicElements['mesh'] &
     props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
     props.randRotation == 1 ? ref.current.rotation.y += props.randRotationDelta : null,
     props.randRotation == 2 ? ref.current.rotation.z += props.randRotationDelta : null,
-    ref.current.position.x -= 0.01,
-    ref.current.position.y += 0.01,
-    ref.current.position.z += -0.01
+    ref.current.position.x -= 0.001,
+    ref.current.position.y += 0.001,
+    ref.current.position.z += -0.002
   ))
 
   return (
@@ -163,9 +161,9 @@ function Ring(props: JSX.IntrinsicElements['mesh'] &
     props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
     props.randRotation == 1 ? ref.current.rotation.y += props.randRotationDelta : null,
     props.randRotation == 2 ? ref.current.rotation.z += props.randRotationDelta : null,
-    ref.current.position.x += 0.01,
-    ref.current.position.y += 0.01,
-    ref.current.position.z += -0.01
+    ref.current.position.x += 0.002,
+    ref.current.position.y += 0.002,
+    ref.current.position.z += -0.001
   ))
 
   return (
@@ -199,9 +197,9 @@ function Dodecahedron(props: JSX.IntrinsicElements['mesh'] &
     props.randRotation == 0 ? ref.current.rotation.x += props.randRotationDelta : null,
     props.randRotation == 1 ? ref.current.rotation.y += props.randRotationDelta : null,
     props.randRotation == 2 ? ref.current.rotation.z += props.randRotationDelta : null,
-    ref.current.position.x = -0.01,
-    ref.current.position.y = -0.01,
-    ref.current.position.z += -0.01
+    ref.current.position.x = -0.001,
+    ref.current.position.y = -0.002,
+    ref.current.position.z += -0.002
   ))
 
   return (
@@ -219,87 +217,6 @@ function Dodecahedron(props: JSX.IntrinsicElements['mesh'] &
       color={props.color} />
     </mesh>
   )
-}
-
-const Octahedron = (props: JSX.IntrinsicElements['mesh'] & {orderKey: any}) =>
-{
-  const order = useOrderStore();
-  const todos = useTodosStore();
-  const ref = useRef<THREE.Mesh>(null!)
-  useFrame((state, delta) => (ref.current.rotation.x += 0.01))
-  useFrame(() => {
-    if (ref.current.position.x > 6)
-    {
-      ref.current.position.x -= 1
-    }
-    Object.keys(todos).includes(props.orderKey) ? null : ref.current.position.y = 10000;
-  })
-
-  return (
-    <mesh
-      {...props}
-      castShadow
-      receiveShadow
-      ref={ref}
-      scale={0.2}
-      rotation={[0,0,3.14/2]}
-      position={[46, -1.6 * (order[props.orderKey] -1), 0]}>
-      <coneGeometry args={[2, 5, 30]} />
-      <meshStandardMaterial 
-        color={'lightgreen'} />
-      <meshPhysicalMaterial
-        clearcoat={1}
-        clearcoatRoughness={0}
-        reflectivity={1}
-        metalness={0.2}
-        roughness={0}
-        color={'lightgreen'} />
-    </mesh>
-  )
-}
-
-function WriteText(props: JSX.IntrinsicElements['group'] & {text: string, orderKey: any}) {
-  const order = useOrderStore();
-  const todos = useTodosStore();
-  const ref = useRef<THREE.Group>(null!);
-  
-  useFrame(() => {
-    if (ref.current.position.x < 0)
-    {
-      ref.current.position.x += 1
-    }
-    Object.keys(todos).includes(props.orderKey) ? null : ref.current.position.y = 10000;
-  })
-
-
-  return (
-    <group ref={ref} {...props} position={[-40, -1.6 * (order[props.orderKey] -1), 0]}>
-      <mesh>
-        <planeGeometry args={[10,1.5,1]}/>
-        <meshPhysicalMaterial
-        reflectivity={1}
-        roughness={0}
-        metalness={0.2}
-        side={THREE.DoubleSide}
-        color={'gray'} 
-        emissive={'white'}/>
-        <Html
-          position={[0, 0.05, 0.009]} 
-          occlude
-          transform
-          className="content">
-          <div className="flex w-[400px] h-[61px] mt-[2px] border-2 border-black overflow-y-auto">
-            <button className='absolute left-1 w-[5%] h-[80%] bg-red-200/40 hover:bg-red-300/20 transition-all border-2 border-gray-800 rounded-lg px-1 m-1' onClick={e => {
-              e.preventDefault();
-              deleteTodo(props.orderKey);
-            }}>X</button>
-            <p className='absolute m-auto px-1 h-fit w-full text-[1rem] text-center align-top text-ellipsis break-words'>To-Do-{order[props.orderKey]+1}</p>
-            <p className='m-auto px-1 h-fit text-[0.5rem] text-center align-middle text-ellipsis break-words'>{props.text}</p>
-          </div>
-        </Html>
-      </mesh>
-    </group>
-  );
 }
 
 function Camera(props: JSX.IntrinsicElements['group']) {
@@ -332,15 +249,6 @@ function Camera(props: JSX.IntrinsicElements['group']) {
   )
 }
 
-const deleteTodo = (key:string) => {
-  const removeTodoLocal = removeTodo;
-  const removeOrderLocal = removeOrder;
-
-  removeTodoLocal(key);
-  removeOrderLocal(key);
-
-}
-
 const spawnRandomObject = (count : number) => {
   const randomObjects = []
   for (let i = 0; i < count; i++)
@@ -370,48 +278,7 @@ const spawnRandomObject = (count : number) => {
 
 }
 
-
-export default function Renderer(props : any) {
-  const [elements, setElements] = useState<JSX.Element[]>([]);
-  const [firstLoad, setFirstLoad] = useState(true);
-  const groupRef = useRef<THREE.Group>(null!);
-  const order = useOrderStore();
-  const todos = useTodosStore();
-
-  const addOrderLocal = addOrder;
-  const addTodoLocal = addTodo;
-
-  useEffect(() => {
-    Object.keys(order).length === 0 && (setElements([]), setFirstLoad(true));
-  }, [todos]);
-
-  useEffect(() => {
-    const addTodoToRender = (key:string, text:string, index:number, delay:number) => 
-    {
-      (order[key] == undefined || firstLoad) &&
-      (
-      setFirstLoad(false),
-      addOrderLocal(key, index),
-      setTimeout(() => 
-      {
-        setElements((elements) => [
-          ...elements,
-          (
-            <group>
-              <WriteText orderKey={key} text={text} />
-              <Octahedron orderKey={key}/>
-            </group>
-          )
-        ])
-      }, delay))
-    };
-
-    Object.keys(todos).forEach((key:string, index) => {
-      //const delay = (index + 1) * 200; 
-      const delay = 0;
-      addTodoToRender(key, todos[key], index, delay);
-    });
-  }, [todos]);
+export default function RenderScene(props : any) {
 
   return (
     <Canvas>
@@ -429,11 +296,7 @@ export default function Renderer(props : any) {
         spawnRandomObject(50)
       }
       <Camera/>
-      {
-        <group ref={groupRef}>
-          {elements}
-        </group>
-      }
+      <RenderTodos/>
     </Canvas>
   )
 }
