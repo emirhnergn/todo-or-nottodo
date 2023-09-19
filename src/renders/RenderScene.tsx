@@ -183,14 +183,15 @@ function Ring(props: JSX.IntrinsicElements['mesh'] &
   )
 }
 
+// Bugged
 function Dodecahedron(props: JSX.IntrinsicElements['mesh'] & 
   {color : string|number,
   randRotationDelta : number, randRotation : number,
   scale : number
   }) {
   const ref = useRef<THREE.Mesh>(null!)
-  const xPos = THREE.MathUtils.randInt(-100,100);
-  const yPos = THREE.MathUtils.randInt(-100,100);
+  const xPos = THREE.MathUtils.randInt(-150,150);
+  const yPos = THREE.MathUtils.randInt(-150,150);
   const zPos = THREE.MathUtils.randInt(-200,-50);
 
   useFrame((state, delta) => (
@@ -206,7 +207,7 @@ function Dodecahedron(props: JSX.IntrinsicElements['mesh'] &
     <mesh
       {...props}
       ref={ref}
-      position={[xPos, yPos, zPos]}
+      position={[xPos,yPos,zPos]}
       scale={props.scale}>
 
       <dodecahedronGeometry args={[5,10]}/>
@@ -270,8 +271,6 @@ const spawnRandomObject = (count : number) => {
         randomObjects.push(<Icosahedron color={color} randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/5} />)
       case 4:
         randomObjects.push(<Ring color={color} randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/5} />)
-      case 5:
-        randomObjects.push(<Dodecahedron color={color} randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/10} />)
     }
   }
   return randomObjects;
@@ -293,7 +292,7 @@ export default function RenderScene(props : any) {
       <pointLight position={[6,-1,2]} />
       <pointLight position={[3,0,3]} />
       {
-        spawnRandomObject(50)
+        spawnRandomObject(60)
       }
       <Camera/>
       <RenderTodos/>
