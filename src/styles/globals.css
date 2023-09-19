@@ -738,6 +738,10 @@ video {
   background-color: rgb(254 202 202 / 0.4);
 }
 
+.bg-orange-200\/40 {
+  background-color: rgb(254 215 170 / 0.4);
+}
+
 .bg-gradient-to-br {
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }
@@ -861,16 +865,12 @@ video {
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-red-300\/20:hover {
-  background-color: rgb(252 165 165 / 0.2);
-}
-
-.hover\:bg-red-300\/10:hover {
-  background-color: rgb(252 165 165 / 0.1);
-}
-
 .hover\:bg-red-300\/60:hover {
   background-color: rgb(252 165 165 / 0.6);
+}
+
+.hover\:bg-orange-300\/60:hover {
+  background-color: rgb(253 186 116 / 0.6);
 }
 
 .hover\:text-blue-600:hover {

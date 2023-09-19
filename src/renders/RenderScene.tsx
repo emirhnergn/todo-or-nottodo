@@ -243,7 +243,7 @@ function Camera(props: JSX.IntrinsicElements['group']) {
       ref = {controlsRef} camera={cameraRef.current}
       enableDamping dampingFactor={0.1}
       enablePan={true} enableZoom={true} 
-      minAzimuthAngle={-Math.PI / 5} maxAzimuthAngle={Math.PI / 5}
+      minAzimuthAngle={-Math.PI / 11} maxAzimuthAngle={Math.PI / 11}
       minPolarAngle={Math.PI / 2.2} maxPolarAngle={Math.PI / 2.2} />
     </group>
   )

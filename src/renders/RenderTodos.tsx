@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { removeTodo,removeOrder,useOrderStore,useTodosStore, addOrder } from '@/stores/MainStore';
 import { useFrame } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
+import {MdDelete} from 'react-icons/md'
 
 
 const Octahedron = (props: JSX.IntrinsicElements['mesh'] & {orderKey: any}) =>
@@ -43,6 +44,15 @@ const Octahedron = (props: JSX.IntrinsicElements['mesh'] & {orderKey: any}) =>
   )
 }
 
+const deleteTodo = (orderKey:string) => {
+  const removeTodoLocal = removeTodo;
+  const removeOrderLocal = removeOrder;
+
+  removeTodoLocal(orderKey);
+  removeOrderLocal(orderKey);
+
+}
+
 function WriteText(props: JSX.IntrinsicElements['group'] & {text: string, orderKey: any}) {
     const order = useOrderStore();
     const todos = useTodosStore();
@@ -55,7 +65,6 @@ function WriteText(props: JSX.IntrinsicElements['group'] & {text: string, orderK
       }
       Object.keys(todos).includes(props.orderKey) ? null : ref.current.position.y = 10000;
     })
-  
   
     return (
       <group ref={ref} {...props} position={[-40, -1.6 * (order[props.orderKey] -1), 0]}>
@@ -74,10 +83,10 @@ function WriteText(props: JSX.IntrinsicElements['group'] & {text: string, orderK
             transform
             className="content">
             <div className="flex w-[400px] h-[61px] mt-[2px] border-2 border-black overflow-y-auto">
-              <button className='absolute left-1 w-[5%] z-[1] h-[80%] bg-red-200/40 hover:bg-red-300/60 transition-all border-2 border-gray-800 rounded-lg px-1 m-1' onClick={e => {
+              <button className='absolute left-1 w-[5%] z-[1] h-[80%] bg-red-200/40 hover:bg-red-300/60 transition-all border-2 border-gray-800 rounded-lg m-1' onClick={e => {
                 e.preventDefault();
                 deleteTodo(props.orderKey);
-              }}>X</button>
+              }}><MdDelete className='mx-auto'/></button>
               <p className='absolute m-auto px-1 h-fit w-full text-[1rem] text-center align-top text-ellipsis break-words'>To-Do-{order[props.orderKey]+1}</p>
               <p className='m-auto px-1 h-fit text-[0.5rem] text-center align-middle text-ellipsis break-words'>{props.text}</p>
             </div>
@@ -87,14 +96,6 @@ function WriteText(props: JSX.IntrinsicElements['group'] & {text: string, orderK
     );
 }
   
-const deleteTodo = (key:string) => {
-    const removeTodoLocal = removeTodo;
-    const removeOrderLocal = removeOrder;
-
-    removeTodoLocal(key);
-    removeOrderLocal(key);
-
-}
 export default function RenderTodos() {
     const [elements, setElements] = useState<JSX.Element[]>([]);
     const [firstLoad, setFirstLoad] = useState(true);
