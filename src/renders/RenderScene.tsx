@@ -183,7 +183,6 @@ function Ring(props: JSX.IntrinsicElements['mesh'] &
   )
 }
 
-// Bugged
 function Dodecahedron(props: JSX.IntrinsicElements['mesh'] & 
   {color : string|number,
   randRotationDelta : number, randRotation : number,
@@ -258,23 +257,16 @@ const spawnRandomObject = (count : number) => {
     const randRotation = Math.floor(Math.random() * 3);
     const randRotationDelta = Math.random() * 0.01;
     const scale = THREE.MathUtils.randInt(1,10);
-    const randObject = Math.floor(Math.random() * 4);
-    switch (randObject)
-    {
-      case 0:
-        randomObjects.push(<Box color={color} randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale} />)
-      case 1:
-        randomObjects.push(<Torus color={color}randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/7} />)
-      case 2:
-        randomObjects.push(<TorusKnot color={color}randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/7}/>)
-      case 3:
-        randomObjects.push(<Icosahedron color={color} randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/5} />)
-      case 4:
-        randomObjects.push(<Ring color={color} randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/5} />)
-    }
+    const randObject = THREE.MathUtils.randInt(0,4);
+    randObject == 0 ? randomObjects.push(<Box color={color} randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale} />) : null
+    randObject == 1 ? randomObjects.push(<Torus color={color}randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/7} />) : null
+    randObject == 2 ? randomObjects.push(<TorusKnot color={color}randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/7}/> ) : null
+    randObject == 3 ? randomObjects.push(<Icosahedron color={color} randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/5} />) : null
+    randObject == 4 ? randomObjects.push(<Ring color={color} randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/5} />) : null
+    //randObject == 5 ? randomObjects.push(<Dodecahedron color={color} randRotation={randRotation} randRotationDelta={randRotationDelta} scale={scale/5} />) : null
   }
-  return randomObjects;
 
+  return randomObjects;
 }
 
 export default function RenderScene(props : any) {
@@ -292,7 +284,7 @@ export default function RenderScene(props : any) {
       <pointLight position={[6,-1,2]} />
       <pointLight position={[3,0,3]} />
       {
-        spawnRandomObject(60)
+        spawnRandomObject(160)
       }
       <Camera/>
       <RenderTodos/>
